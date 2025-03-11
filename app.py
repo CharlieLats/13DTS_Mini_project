@@ -14,7 +14,7 @@ def connect_database(db_file):
 
 
 @app.route('/signup', methods=['POST', 'GET'])
-def render_signup_page(num_email=None):
+def render_signup_page():
     if request.method == 'POST':
         fname = request.form.get('user_fname').title().strip()
         lname = request.form.get('user_lname').title().strip()
@@ -28,8 +28,13 @@ def render_signup_page(num_email=None):
             return redirect("\signup?error=password+must+at+least+8+characters")
 
         con = connect_database(DATABASE)
-        query_insert = "INSERT INTO user (fname, lname, email, password) VALUES (?, ?, ?, ?)"
         cur = con.cursor()
+        query1 = "SELECT email FROM user"
+        cur.execute(query1)
+        all_emails = cur.fetchall()
+        if (email,) in all_emails:
+            return redirect('\signup?error=email+already+associated+with+an+account')
+        query_insert = "INSERT INTO user (fname, lname, email, password) VALUES (?, ?, ?, ?)"
         cur.execute(query_insert, (fname, lname, email, password))
         con.commit()
         con.close()
@@ -38,6 +43,11 @@ def render_signup_page(num_email=None):
 
 @app.route('/login', methods=['POST', 'GET'])
 def render_login_page():
+    if request.method == 'GET':
+        email = request.form.get('user_email').lower().strip()
+        password = request.form.get('user_password')
+    if email
+
     return render_template('login.html')
 
 @app.route('/')
