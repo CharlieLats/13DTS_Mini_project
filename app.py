@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect
+import app
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import sqlite3
 from sqlite3 import Error
 
-app = Flask(__name__)
 DATABASE = 'sessions'
 def connect_database(db_file):
     try:
@@ -43,10 +43,31 @@ def render_signup_page():
 
 @app.route('/login', methods=['POST', 'GET'])
 def render_login_page():
-    if request.method == 'GET':
-        email = request.form.get('user_email').lower().strip()
-        password = request.form.get('user_password')
-    if email
+    if request.method == 'POST':
+        con = connect_database(DATABASE)
+        cur = con.cursor()
+        query1 = "SELECT user_id, email, password FROM user"
+        cur.execute(query1)
+        all_emails = cur.fetchall()
+        if len(all_emails) > 0:
+            email = request.form.get('user_email').lower().strip()
+            password = request.form.get('user_password')
+            email_found = False
+            for i, x in enumerate(all_emails):
+                if email in x:
+                    email_location = all_emails[i]
+                    email_found = True
+            if email_found == True:
+                if password == email_location[2]:
+                    return redirect(url_for('<user_id>/home'))
+
+                else:
+                    return redirect('\signup?error=passwords+do+not+match')
+            else:
+                return redirect('\signup?error=email+not+associated+with+an+account')
+        else:
+            return redirect('\signup?error=email+not+associated+with+an+account')
+
 
     return render_template('login.html')
 
@@ -56,4 +77,5 @@ def hello_world():  # put application's code here
 
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()
