@@ -1,9 +1,10 @@
-import app
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, session
 import sqlite3
 from sqlite3 import Error
 
 DATABASE = 'sessions'
+app = Flask(__name__)
+app.secret_key = "secret_key"
 def connect_database(db_file):
     try:
         con = sqlite3.connect(db_file)
@@ -46,9 +47,11 @@ def render_login_page():
     if request.method == 'POST':
         con = connect_database(DATABASE)
         cur = con.cursor()
-        query1 = "SELECT user_id, email, password FROM user"
+        query1 = "SELECT user_id, email, password, fname FROM user"
         cur.execute(query1)
         all_emails = cur.fetchall()
+        user_info = cur.fetchone()
+        con.close()
         if len(all_emails) > 0:
             email = request.form.get('user_email').lower().strip()
             password = request.form.get('user_password')
@@ -59,7 +62,9 @@ def render_login_page():
                     email_found = True
             if email_found == True:
                 if password == email_location[2]:
-                    return redirect(url_for('<user_id>/home'))
+                    session['user_id'] = user_info[0]
+                    session['email'] = user_info[1]
+                    session['fname'] = user_info[3]
 
                 else:
                     return redirect('\signup?error=passwords+do+not+match')
@@ -74,6 +79,18 @@ def render_login_page():
 @app.route('/')
 def hello_world():  # put application's code here
     return render_template('index.html')
+
+@app.route('/my_sessions')
+def render_sessions():  # put application's code here
+    return render_template('my_sessions.html')
+
+@app.route('/create_sessions')
+def render_create_sessions():  # put application's code here
+    return render_template('create_sessions.html')
+
+@app.route('/schedule')
+def render_schedule():  # put application's code here
+    return render_template('schedule.html')
 
 
 if __name__ == '__main__':
