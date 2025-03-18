@@ -169,9 +169,6 @@ a, a:visited {
     width: 100%;
 }
 
-table {
-    border-collapse: collapse;
-}
 
 .cart-table > thead {
     font-weight: bold;
@@ -212,4 +209,26 @@ table {
 
 .text {
     font-family: 'Manrope', sans-serif;
+}
+
+table {
+    width: 80%;
+    margin: auto;
+    border: 3px solid dimgrey;
+}
+
+table td {
+    border: 1px solid dimgrey;
+    padding: 5px;
+}
+
+.button-link {
+  display: block;
+  text-align: center;
+  padding-top: 40px;
+  padding: 10px 20px;
+  background-color: #8712ff;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
 }

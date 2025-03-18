@@ -85,12 +85,19 @@ def render_sessions():  # put application's code here
     return render_template('my_sessions.html')
 
 @app.route('/create_sessions')
-def render_create_sessions():  # put application's code here
+def render_create_sessions():
     return render_template('create_sessions.html')
 
 @app.route('/schedule')
-def render_schedule():  # put application's code here
-    return render_template('schedule.html')
+def render_schedule():
+    con = connect_database(DATABASE)
+    query = "SELECT Date, Time, end_time, Title, Description, Location FROM schedule"
+    cur = con.cursor()
+    cur.execute(query)
+    schedule_list = cur.fetchall()
+    print(schedule_list)
+    return render_template('schedule.html', sched=schedule_list)
+
 
 
 if __name__ == '__main__':

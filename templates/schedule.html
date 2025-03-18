@@ -1,10 +1,34 @@
 {% extends "base.html" %}
 
-{% block pageheading %}Schedule{% endblock %}
+{% block pageheading %}Classroom Tutoring Schedule{% endblock %}
 
 {% block main %}
 <body>
-<a href="/create_sessions">Create a session</a>
+<div style="padding-bottom: 20px"></div>
+<table>
+<tr>
+    <td>Date</td>
+    <td>Start Time</td>
+    <td>End Time</td>
+    <td>Title</td>
+    <td>Description</td>
+    <td>Location</td>
+    <td></td>
+</tr>
+{% for s in sched %}
+<tr>
+    <td>{{ s[0] }}</td>
+    <td>{{ s[1] }}</td>
+    <td>{{ s[2] }}</td>
+    <td>{{ s[3] }}</td>
+    <td>{{ s[4] }}</td>
+    <td>{{ s[5] }}</td>
+    <td><a href="/my_sessions" class="button-link">Sign Up</a></td>
+</tr>
+{% endfor %}
+</table>
+<div style="padding-bottom: 20px"></div>
+<a href="/create_sessions" class="button-link">Want to do a one on one? Click to create a session</a>
 </body>
 
 {% endblock %}
