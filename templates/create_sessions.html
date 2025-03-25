@@ -9,10 +9,26 @@ Create A Session
 {% block main %}
 <body>
 <form class="myform" style="color: #e3e3e3" method="post">
-    <div class="form-group">
-        <div class="form-label">Location: </div>
-        <div class="form-element"> <input type="text" name="location" value="Location"></div>
+    <div class="form-group" action="/create_sessions">
+    <span>
+    <div class="form-label"> Location: </div>
+    </span>
+    <div class="form-element">
+      <input list="classrooms">
+      <datalist id="classrooms" name="location">
+        <option value="M4">
+        <option value="P4">
+        <option value="204">
+        <option value="L4">
+        <option value="LC5">
+        <option value="104">
+        <option value="101">
+        <option value="S3">
+        <option value="T5">
+      </datalist>
     </div>
+    </div>
+    </span>
     <div class="form-group">
         <div class="form-label"> Date </div>
         <div class="form-element"> <input type="date" name="date" value="Date"></div>

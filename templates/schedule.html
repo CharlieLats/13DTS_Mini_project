@@ -38,14 +38,14 @@ Classroom Tutoring Sessions
     <td>{{ s[5] }}</td>
     {% if 'user_id' in session %}
     <td>
-        <form class="myform" action="/schedule" method="post">
+        <form action="/schedule" method="post">
             <input type="hidden" name="val0" value="{{ s[0] }}">
             <input type="hidden" name="val1" value="{{ s[1] }}">
             <input type="hidden" name="val2" value="{{ s[2] }}">
             <input type="hidden" name="val3" value="{{ s[3] }}">
             <input type="hidden" name="val4" value="{{ s[4] }}">
             <input type="hidden" name="val5" value="{{ s[5] }}">
-            <input type="submit" name="signup" value="Sign Up">
+            <input class="button-link" type="submit" name="signup" value="Sign Up">
         </form>
     </td>
     {% endif %}

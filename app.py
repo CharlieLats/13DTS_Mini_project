@@ -84,13 +84,10 @@ def render_login_page():
 
 @app.route('/logout', methods=['POST', 'GET'])
 def render_logout():
-    if request.method == 'POST':
         session.pop('email')
         session.pop('user_id')
         session.pop('fname')
-        print(session)
         return redirect('/login')
-    return render_template('logout.html')
 @app.route('/')
 def hello_world():  # put application's code here
     return render_template('index.html')
