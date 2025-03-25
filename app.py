@@ -37,7 +37,7 @@ def render_signup_page():
         all_emails = cur.fetchall()
         if (email,) in all_emails:
             return redirect('\signup?error=email+already+associated+with+an+account')
-        query_insert = "INSERT INTO user (fname, lname, email, hashed_password) VALUES (?, ?, ?, ?)"
+        query_insert = "INSERT INTO user (fname, lname, email, password) VALUES (?, ?, ?, ?)"
         cur.execute(query_insert, (fname, lname, email, hashed_password))
         con.commit()
         con.close()
