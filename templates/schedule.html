@@ -4,7 +4,11 @@
 
 {% block main %}
 <body>
+
+
+<a href="/create_sessions" class="button-link">Want to do a one on one? Click to create a session</a>
 <div style="padding-bottom: 20px"></div>
+
 <table>
 <tr>
     <td>Date</td>
@@ -23,12 +27,14 @@
     <td>{{ s[3] }}</td>
     <td>{{ s[4] }}</td>
     <td>{{ s[5] }}</td>
-    <td><a href="/my_sessions" class="button-link">Sign Up</a></td>
+    <td>
+            <form class="myform" action="/schedule" method="post">
+                <input type="submit" name="signup" value="Sign Up">
+            </form>
+    </td>
 </tr>
 {% endfor %}
 </table>
-<div style="padding-bottom: 20px"></div>
-<a href="/create_sessions" class="button-link">Want to do a one on one? Click to create a session</a>
 </body>
 
 {% endblock %}

@@ -5,24 +5,22 @@
 {% block main %}
 
 <body>
-<form action="/action_page.php" method="get">
-    <label for="Location">Location:</label>
-  <input list="browsers" name="browser" id="browser">
-  <datalist id="browsers">
-    {% for l in loco %}
-      <option value={{ l[5] }}>
-    {% endfor %}
-  </datalist>
-  <input type="submit">
-</form>
 <form class="myform" method="post">
     <div class="form-group">
+        <div class="form-label">Location: </div>
+        <div class="form-element"> <input type="text" name="location" value="Location"></div>
+    </div>
+    <div class="form-group">
+        <div class="form-label"> Date </div>
+        <div class="form-element"> <input type="date" name="date" value="Date"></div>
+    </div>
+    <div class="form-group">
         <div class="form-label"> Start Time </div>
-        <div class="form-element"> <input type="time" step="360000" name="start_time" value="Start Time"></div>
+        <div class="form-element"> <input type="time" name="start_time" value="Start Time"></div>
     </div>
     <div class="form-group">
         <div class="form-label"> End Time </div>
-        <div class="form-element"> <input type="time" step="360000" name="end_time" value="End Time"></div>
+        <div class="form-element"> <input type="time" name="end_time" value="End Time"></div>
     </div>
     <div class="form-group">
         <div class="form-label"> Submit </div>

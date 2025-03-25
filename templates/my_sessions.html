@@ -1,10 +1,38 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block pageheading %}Your Sessions{% endblock %}
+{% block pageheading %}
+Your Sessions
+{% endblock %}
 
 {% block main %}
-<body>
 
-</body>
+<a href="/create_sessions" class="button-link">Click to create a session</a>
+<div style="padding-bottom: 20px"></div>
 
+    <div class="products">
+        {% if list_of_sessions %}
+            <table>
+            <tr>
+                <td>Location</td>
+                <td>Date</td>
+                <td>Title</td>
+                <td>Description</td>
+                <td>Start Time</td>
+                <td>End Time</td>
+            </tr>
+            {% for session in list_of_sessions %}
+                <tr>
+                    <td>{{ session[0] }}</td>
+                    <td>{{ session[1] }}</td>
+                    <td>{{ session[2] }} </td>
+                    <td>{{ session[3] }}</td>
+                    <td>{{ session[4] }}</td>
+                    <td>{{ session[5] }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% else %}
+            <p>No sessions found.</p>
+        {% endif %}
+    </div>
 {% endblock %}

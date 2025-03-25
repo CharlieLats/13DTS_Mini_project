@@ -19,7 +19,11 @@
             <a href="/my_sessions">sessions</a>
             <a href="/schedule">schedule</a>
             <a href="/create_sessions">book</a>
+            {% if 'user_id' in session %}
+            <a href="/logout">logout</a>
+            {% else %}
             <a href="/login">login</a>
+            {% endif %}
             <a href="/signup">signup</a>
         </div>
     </div>
