@@ -34,7 +34,7 @@ Your Sessions
                     <td>
                         <form class="myform" action="{{ url_for('render_sessions', session_id=session[6]) }}" method="post">
                             <input type="hidden" name="session_id" value="{{ session[6] }}">
-                            <input type="submit" name="delete" value="Delete">
+                            <input class="button-link" type="submit" name="delete" value="Delete">
                         </form>
                     </td>
                 </tr>
