@@ -1,37 +1,54 @@
 {% extends "base.html" %}
 
-{% block pageheading %}Classroom Tutoring Schedule{% endblock %}
+{% block pageheading %}
+<div style="color: #e3e3e3">
+Classroom Tutoring Sessions
+</div>
+{% endblock %}
 
 {% block main %}
-<body>
+<body style="background-color: #015507FF">
 
-
-<a href="/create_sessions" class="button-link">Want to do a one on one? Click to create a session</a>
+{% if 'user_id' in session %}
+    <a href="/create_sessions" class="button-link">Want to do a one on one? Click to create a session</a>
+{% else %}
+    <a href="/login" class="button-link">Want to add a session ? Click to login</a>
+{% endif %}
 <div style="padding-bottom: 20px"></div>
 
-<table>
-<tr>
+<table style="background-color: #015507FF">
+<tr style="color: #e3e3e3">
+    <td>Location</td>
     <td>Date</td>
-    <td>Start Time</td>
-    <td>End Time</td>
     <td>Title</td>
     <td>Description</td>
-    <td>Location</td>
-    <td></td>
+    <td>Start Time</td>
+    <td>End Time</td>
+    {% if 'user_id' in session %}
+        <td>Add</td>
+    {% endif %}
 </tr>
 {% for s in sched %}
-<tr>
+<tr style="color: #e3e3e3">
     <td>{{ s[0] }}</td>
     <td>{{ s[1] }}</td>
     <td>{{ s[2] }}</td>
     <td>{{ s[3] }}</td>
     <td>{{ s[4] }}</td>
     <td>{{ s[5] }}</td>
+    {% if 'user_id' in session %}
     <td>
-            <form class="myform" action="/schedule" method="post">
-                <input type="submit" name="signup" value="Sign Up">
-            </form>
+        <form class="myform" action="/schedule" method="post">
+            <input type="hidden" name="val0" value="{{ s[0] }}">
+            <input type="hidden" name="val1" value="{{ s[1] }}">
+            <input type="hidden" name="val2" value="{{ s[2] }}">
+            <input type="hidden" name="val3" value="{{ s[3] }}">
+            <input type="hidden" name="val4" value="{{ s[4] }}">
+            <input type="hidden" name="val5" value="{{ s[5] }}">
+            <input type="submit" name="signup" value="Sign Up">
+        </form>
     </td>
+    {% endif %}
 </tr>
 {% endfor %}
 </table>

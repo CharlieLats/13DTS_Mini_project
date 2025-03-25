@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 
-{% block pageheading %}Login{% endblock %}
+{% block pageheading %}
+    <div style="color: #e3e3e3">
+        Login
+    </div>
+{% endblock %}
 
 {% block main %}
-    <div>
-        <form class="myform" method="post">
+        <form class="myform" style="color: #e3e3e3" method="post">
             <div class="form-group">
                 <div class="form-label"> Email: </div>
                 <div class="form-element"> <input type="email" name="user_email"></div>
@@ -21,18 +24,12 @@
             </div>
 
         </form>
+    <div style="padding-bottom: 20px"></div>
+    <br>
+    <br>
+    <div style="text-align: center; color: #e3e3e3">
+        <text> Don't have an account? <a href="signup" style="background-color: #008e0c">Click here</a> to sign up! </text>
     </div>
     <br>
     <br>
-    <div style="align-content: center">
-        <text>
-            Don't have an account?
-        </text>
-        <text>
-            <a href="signup" style="background-color: #8712ff">Click here</a>
-        </text>
-        <text>
-            to sign up!
-        </text>
-    </div>
 {% endblock %}

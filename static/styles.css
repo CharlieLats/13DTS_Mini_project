@@ -4,9 +4,20 @@
     margin: 0;
     box-sizing: border-box;
 }
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
 body {
-    background-color: rgba(236, 240, 241, 1.0);
+    background-image: url('/static/images/chalkboard.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100%;
+
 }
 
 .container {
@@ -41,13 +52,13 @@ h2 {
 }
 
 nav {
-    background-color: rgb(135, 72, 255); /* darkest blue */
+    background-color: rgb(1, 85, 7); /* darkest blue */
     text-align: center;
     /*color: rgba(52, 152, 219, 1.0);!*light blue*!*/
     font-size: 1.5rem;
     padding-top: 0.4rem;
     padding-bottom: 0.7rem;
-    color: rgb(255, 240, 139); /*light blue*/
+    color: rgb(227, 227, 227); /*light blue*/
 }
 
 .navbar-brand {
@@ -72,11 +83,11 @@ nav a {
 nav a:hover {
     /*color: rgba(44, 62, 80, 1.0); !* darkest blue *!*/
     /*background-color: rgba(52, 152, 219, 1.0); !*light blue*!*/
-    border-bottom: 3px solid rgb(255, 217, 89);
+    border-bottom: 3px solid rgb(227, 227, 227);
 }
 
 a, a:visited {
-    color: rgb(255, 230, 132);
+    color: rgb(227, 227, 227);
     /*color:hotpink;*/
     text-decoration: none;
 }
@@ -98,7 +109,7 @@ a, a:visited {
     /*display: table-cell;*/
     /*padding: 0.5rem;*/
     /*margin: 1vw;*/
-    border: 1px solid rgba(189, 195, 199, 1.0);
+    border: 1px solid rgb(43, 163, 243);
     color: rgba(44, 62, 80, 1.0);
     margin-bottom: 0.5rem;
 }
@@ -110,7 +121,7 @@ a, a:visited {
 .product-box-image {
     width: 200px;
     overflow: hidden;
-    border: 5px solid #c0efec
+    border: 5px solid #022321
 }
 
 .product-box-info {
@@ -177,7 +188,7 @@ a, a:visited {
 .cart-table td {
     padding: 0.2rem 1rem;
     text-align: center;
-    border: 1px solid #ddd;
+    border: 1px solid #e3e3e3;
 }
 
 .cart-total {
@@ -214,11 +225,11 @@ a, a:visited {
 table {
     width: 80%;
     margin: auto;
-    border: 3px solid dimgrey;
+    border: 3px solid #e3e3e3;
 }
 
 table td {
-    border: 1px solid dimgrey;
+    border: 1px solid #e3e3e3;
     padding: 5px;
 }
 
@@ -227,8 +238,9 @@ table td {
   text-align: center;
   padding-top: 40px;
   padding: 10px 20px;
-  background-color: #8712ff;
-  color: #fff;
+  background-color: #006c16;
+  color: #e3e3e3;
   border-radius: 4px;
   text-decoration: none;
 }
+

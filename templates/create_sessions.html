@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
-{% block pageheading %}Create A Session{% endblock %}
+{% block pageheading %}
+<div style="color: #e3e3e3">
+Create A Session
+</div>
+{% endblock %}
 
 {% block main %}
-
 <body>
-<form class="myform" method="post">
+<form class="myform" style="color: #e3e3e3" method="post">
     <div class="form-group">
         <div class="form-label">Location: </div>
         <div class="form-element"> <input type="text" name="location" value="Location"></div>
@@ -26,6 +29,10 @@
         <div class="form-label"> Submit </div>
         <div class="form-element"> <input type="submit" name="submit_button" value="Submit"></div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
 </form>
 </body>
 

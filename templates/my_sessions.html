@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block pageheading %}
+<div style="color: #e3e3e3">
 Your Sessions
+</div>
 {% endblock %}
 
 {% block main %}
@@ -12,22 +14,29 @@ Your Sessions
     <div class="products">
         {% if list_of_sessions %}
             <table>
-            <tr>
+            <tr style="color: #e3e3e3">
                 <td>Location</td>
                 <td>Date</td>
                 <td>Title</td>
                 <td>Description</td>
                 <td>Start Time</td>
                 <td>End Time</td>
+                <td>Delete</td>
             </tr>
             {% for session in list_of_sessions %}
-                <tr>
+                <tr style="color: #e3e3e3">
                     <td>{{ session[0] }}</td>
                     <td>{{ session[1] }}</td>
                     <td>{{ session[2] }} </td>
                     <td>{{ session[3] }}</td>
                     <td>{{ session[4] }}</td>
                     <td>{{ session[5] }}</td>
+                    <td>
+                        <form class="myform" action="{{ url_for('render_sessions', session_id=session[6]) }}" method="post">
+                            <input type="hidden" name="session_id" value="{{ session[6] }}">
+                            <input type="submit" name="delete" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
             </table>

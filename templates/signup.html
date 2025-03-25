@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 
-{% block pageheading %}Create an Account{% endblock %}
+{% block pageheading %}
+<div style="color: #e3e3e3">
+Sign Up
+</div>
+{% endblock %}
 
 {% block main %}
-    <div>
-    <form class="myform" method="post">
+    <form class="myform" style="color: #e3e3e3; background-color: #015507FF" method="post">
         <div class="form-group">
             <div class="form-label"> First Name: </div>
             <div class="form-element"> <input type="text" name="user_fname"></div>
@@ -32,20 +35,13 @@
             <div class="form-label"> Submit </div>
             <div class="form-element"> <input type="submit" name="submit_button" value="Sign Up"></div>
         </div>
-
     </form>
+    <div style="padding-bottom: 20px"></div>
+    <br>
+    <br>
+    <div style="text-align: center; color: #e3e3e3">
+        <text> Already have an account? <a href="login" style="background-color: #008709">Click here</a> to login! </text>
     </div>
     <br>
     <br>
-    <div style="align-content: center">
-        <text>
-            Already have an account?
-        </text>
-        <text>
-            <a href="login" style="background-color: blue">Click here</a>
-        </text>
-        <text>
-            to login!
-        </text>
-    </div>
 {% endblock %}
