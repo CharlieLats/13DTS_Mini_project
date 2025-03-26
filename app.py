@@ -29,7 +29,7 @@ def render_signup_page():
 
         if len(password) < 8:
             return redirect("\signup?error=password+must+at+least+8+characters")
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(password)
         con = connect_database(DATABASE)
         cur = con.cursor()
         query1 = "SELECT email FROM user"
@@ -37,7 +37,7 @@ def render_signup_page():
         all_emails = cur.fetchall()
         if (email,) in all_emails:
             return redirect('\signup?error=email+already+associated+with+an+account')
-        query_insert = "INSERT INTO user (fname, lname, email, hashed_password) VALUES (?, ?, ?, ?)"
+        query_insert = "INSERT INTO user (fname, lname, email, password) VALUES (?, ?, ?, ?)"
         cur.execute(query_insert, (fname, lname, email, hashed_password))
         con.commit()
         con.close()
@@ -54,7 +54,6 @@ def render_login_page():
         if request.method == 'POST':
             email = request.form.get('user_email').lower().strip()
             hashed_password = request.form.get('tutee_password')
-            tutee_hash_password = bcrypt.generate_password_hash(hashed_password).decode('utf-8')
             query1 = "SELECT user_id, fname, password FROM user WHERE email = ?"
             con = connect_database(DATABASE)
             cur = con.cursor()
@@ -62,7 +61,6 @@ def render_login_page():
             user_info = cur.fetchone()
             con.close()
             try:
-                print(user_info)
                 user_id = user_info[0]
                 fname = user_info[1]
                 user_password = user_info[2]
@@ -70,10 +68,7 @@ def render_login_page():
                 print('Index Error')
                 return redirect('\login?error=email+or+password+is+invalid')
 
-            if hashed_password != user_password:
-                print(hashed_password)
-                print(user_password)
-                print('Hash Error')
+            if bcrypt.check_password_hash(user_password, hashed_password) == False:
                 return redirect('\login?error=email+or+password+is+invalid')
             else:
                 session['email'] = email
@@ -113,16 +108,14 @@ def render_sessions():
             return render_template('my_sessions.html', error=f"An error occurred: {e}")
     elif request.method == 'POST':
         sess_id = request.form.get('session_id')
-        print(sess_id)
         try:
             con = connect_database(DATABASE)
-            query = f"DELETE FROM my_sessions WHERE session_id = ?"
+            query = "DELETE FROM my_sessions WHERE session_id = ?"
             cur = con.cursor()
             cur.execute(query, (sess_id,))
-            session_list = cur.fetchone()
-            print(session_list)
+            con.commit()
             con.close()
-            return render_template('my_sessions.html', list_of_sessions=session_list, user_id=user_id)
+            return redirect('/my_sessions')
         except Error as e:
             print('Error')
             return render_template('my_sessions.html', error=f"An error occurred: {e}")
@@ -141,13 +134,6 @@ def render_create_sessions():
         try:
             con = connect_database(DATABASE)
             cur = con.cursor()
-            check_tutee_query = "SELECT * FROM user WHERE user_id = ?"
-            cur.execute(check_tutee_query, (s_tute_id,))
-            tutee = cur.fetchone()
-            if not tutee:
-                con.close()
-                error_message = "TUTEE DOES NOT EXIST"
-                return render_template('create_sessions.html', error=error_message)
             check_session_query = ("SELECT * FROM my_sessions WHERE user_id = ? AND date = ? AND location = ? "
                                    "AND start_time = ? AND end_time = ?")
             cur.execute(check_session_query, (s_tute_id, s_date, s_location, s_start_time, s_end_time))
@@ -188,6 +174,13 @@ def render_schedule():
         try:
             con = connect_database(DATABASE)
             cur = con.cursor()
+            check_session_query = ("SELECT * FROM my_sessions WHERE user_id = ? AND date = ? AND location = ? "
+                                   "AND start_time = ? AND end_time = ?")
+            cur.execute(check_session_query, (user_id, Date, Location, Time, end_time))
+            existing_session_list = cur.fetchall()
+            if existing_session_list:
+                con.close()
+                return redirect('/schedule')
             insert_session_query = ("INSERT INTO my_sessions (location, date, title, description, start_time, "
                                     "end_time, user_id) VALUES (?, ?, ?, ?, ?, ?, ?) ")
             cur.execute(insert_session_query, (Location, Date, Title, Description, Time, end_time, user_id))

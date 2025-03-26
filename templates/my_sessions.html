@@ -7,11 +7,8 @@ Your Sessions
 {% endblock %}
 
 {% block main %}
-
 <a href="/create_sessions" class="button-link">Click to create a session</a>
 <div style="padding-bottom: 20px"></div>
-
-    <div class="products">
         {% if list_of_sessions %}
             <table>
             <tr style="color: #e3e3e3">
@@ -24,24 +21,23 @@ Your Sessions
                 <td>Delete</td>
             </tr>
             {% for session in list_of_sessions %}
-                <tr style="color: #e3e3e3">
-                    <td>{{ session[0] }}</td>
-                    <td>{{ session[1] }}</td>
-                    <td>{{ session[2] }} </td>
-                    <td>{{ session[3] }}</td>
-                    <td>{{ session[4] }}</td>
-                    <td>{{ session[5] }}</td>
-                    <td>
-                        <form class="myform" action="{{ url_for('render_sessions', session_id=session[6]) }}" method="post">
-                            <input type="hidden" name="session_id" value="{{ session[6] }}">
-                            <input class="button-link" type="submit" name="delete" value="Delete">
-                        </form>
-                    </td>
-                </tr>
+            <tr style="color: #e3e3e3">
+                <td>{{ session[0] }}</td>
+                <td>{{ session[1] }}</td>
+                <td>{{ session[2] }} </td>
+                <td>{{ session[3] }}</td>
+                <td>{{ session[4] }}</td>
+                <td>{{ session[5] }}</td>
+                <td>
+                    <form class="myform" action="/my_sessions" method="post">
+                        <input type="hidden" name="session_id" value="{{ session[6] }}">
+                        <input class="button-link" type="submit" name="delete" value="Delete">
+                    </form>
+                </td>
+            </tr>
             {% endfor %}
             </table>
         {% else %}
-            <p>No sessions found.</p>
+            <p style="color: #e3e3e3">No sessions found.</p>
         {% endif %}
-    </div>
 {% endblock %}
