@@ -41,7 +41,7 @@ def render_signup_page():
         cur.execute(query_insert, (fname, lname, email, hashed_password))
         con.commit()
         con.close()
-        return render_template('login.html')
+        return redirect('/login')
     return render_template('signup.html')
 
 
@@ -117,7 +117,6 @@ def render_sessions():
             con.close()
             return redirect('/my_sessions')
         except Error as e:
-            print('Error')
             return render_template('my_sessions.html', error=f"An error occurred: {e}")
 
 
